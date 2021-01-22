@@ -1,11 +1,12 @@
-import './App.css';
-import RoomBooking from './views/RoomBooking'
+import { BrowserRouter } from 'react-router-dom';
+import RoomBooking from './views/RoomBooking';
+
 function App() {
   return (
-    <div className="App">
-    <RoomBooking/>
-    </div>
+    <BrowserRouter>
+      <RoomBooking />
+    </BrowserRouter>
   );
-} 
+}
 
 export default App;
