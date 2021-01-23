@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
-import { useLocation, useParams } from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
     // root: {
@@ -82,9 +80,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BookingDetail() {
     const classes = useStyles();
-    const param = useParams()
-    const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
+    // const param = useParams()
+    // const location = useLocation()
+    // const searchParams = new URLSearchParams(location.search)
     // console.log(searchParams.get('roomId'), "<==Search")
     // console.log(param, "<==Param");
     // console.log(location, "<==Loacation");

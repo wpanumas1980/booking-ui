@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, AppBar, Toolbar, Box, Typography, Button } from '@material-ui/core';
 import BookingDetail from './BookingDetail';
-import { Link, Route, Switch, useLocation, useParams } from 'react-router-dom';
+import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import {bookingData } from '../bookingData/bookingData';
 
+console.log(bookingData);
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,16 +84,17 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function RoomBooking() {
+export default function RoomBooking({ roomId, setRoomId }) {
   const classes = useStyles();
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const [roomId, setRoomId] = useState("A101");
 
   useEffect(() => {
-    setRoomId(searchParams);
-  }, []);
-  console.log(searchParams);
+    searchParams.get('roomId') === 'null' ? setRoomId('A101') : setRoomId(searchParams.get('roomId'))
+    
+  }, [])
+
+  console.log(roomId);
   return (
     <div className={classes.root}>
       <Grid container >
@@ -100,8 +103,8 @@ export default function RoomBooking() {
             <Box className={classes.leftParagraph} component="div">
               <Box className={classes.roomName} component="div">
                 <Typography variant="h3" className={classes.roomLabel}>
-                  A101
-              </Typography>
+                  {roomId}
+                </Typography>
               </Box>
               <Typography variant="body1" className={classes.interval}>
                 Upcoming
@@ -138,9 +141,9 @@ export default function RoomBooking() {
           <Box component="div" className={classes.menuBar} display="flex" flexDirection="column" justifyContent="flex-end">
             <AppBar position="static" elevation={0} className={classes.menu} >
               <Toolbar style={{ opacity: '0.5' }}>
-                <Link to={`/bookings/thisweek?${roomId}`} style={{ textDecoration: 'none' }}><Button>This week</Button></Link>
-                <Link to={`/bookings/nextweek?${roomId}`} style={{ textDecoration: 'none' }}><Button>NEXT WEEK</Button></Link>
-                <Link to={`/bookings/wholemonth?${roomId}`} style={{ textDecoration: 'none' }}><Button>WHOLE MONTH</Button></Link>
+                <Link to={`/bookings/nextweek?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>This week</Button></Link>
+                <Link to={`/bookings/nextweek?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>NEXT WEEK</Button></Link>
+                <Link to={`/bookings/wholemonth?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>WHOLE MONTH</Button></Link>
               </Toolbar>
             </AppBar>
           </Box>
@@ -149,53 +152,6 @@ export default function RoomBooking() {
               <BookingDetail />
             </Route>
           </Switch>
-
-
-          {/*         
-          <Box component='div'>
-            <Box component='div' className={classes.dateHeader}>
-              <Typography variant="subtitle1" style={{ color: '#787878' }} >
-              Tomorrow (Tue, 29 Sep)
-              </Typography>
-            </Box>
-            <Box component='div' className={classes.bookingDetail}>
-              <Box component='div' className={classes.marker}>
-                <Typography variant="body2" style={{ color: '#F3814A' }} >
-                  ⬤
-                </Typography>
-              </Box>
-              <Box component='div' className={classes.subDetail}>
-                <Typography variant="body2" style={{ color: 'black', opacity: '0.5' }}>
-                  13:00 - 14:00
-                </Typography>
-                <Typography variant="subtitle2" style={{ color: 'black' }}>
-                  Lunch with Petr
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box component='div'>
-            <Box component='div' className={classes.dateHeader}>
-              <Typography variant="subtitle1" style={{ color: '#787878' }} >
-              Tomorrow (Tue, 29 Sep)
-              </Typography>
-            </Box>
-            <Box component='div' className={classes.bookingDetail}>
-              <Box component='div' className={classes.marker}>
-                <Typography variant="body2" style={{ color: '#F3814A' }} >
-                  ⬤
-                </Typography>
-              </Box>
-              <Box component='div' className={classes.subDetail}>
-                <Typography variant="body2" style={{ color: 'black', opacity: '0.5' }}>
-                  13:00 - 14:00
-                </Typography>
-                <Typography variant="subtitle2" style={{ color: 'black' }}>
-                  Lunch with Petr
-                </Typography>
-              </Box>
-            </Box>
-          </Box> */}
         </Grid>
       </Grid>
     </div>
