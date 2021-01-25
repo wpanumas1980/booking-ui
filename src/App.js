@@ -1,12 +1,20 @@
 import { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import RoomBooking from './views/RoomBooking';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import BookingPage from './views/BookingPage';
+import HomePage from './views/HomePage';
 
 function App() {
-  const [roomId, setRoomId] = useState("A101");
+
   return (
     <BrowserRouter>
-      <RoomBooking roomId={roomId} setRoomId={setRoomId}/>
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/bookings/:time">
+          <BookingPage />
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

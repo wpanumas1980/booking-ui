@@ -71,5 +71,6 @@ const raw = [
     }
 ]
 
-const bookingData = raw.map( room => room.roomId)
+const bookingData = raw.map( room => room.roomId);
+
 export {bookingData} 

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, AppBar, Toolbar, Box, Typography, Button } from '@material-ui/core';
 import BookingDetail from './BookingDetail';
-import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import { Link, Route, Switch, useLocation, useParams } from 'react-router-dom';
 import {bookingData } from '../bookingData/bookingData';
 
-console.log(bookingData);
+// console.log(bookingData);
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,17 +84,17 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function RoomBooking({ roomId, setRoomId }) {
+export default function RoomBooking() {
   const classes = useStyles();
+  const {time} =  useParams();
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
+  const roomLabel=  searchParams.get("roomId");
+  // useEffect(() => {
+  
+  // }, [])
 
-  useEffect(() => {
-    searchParams.get('roomId') === 'null' ? setRoomId('A101') : setRoomId(searchParams.get('roomId'))
-    
-  }, [])
-
-  console.log(roomId);
+  
   return (
     <div className={classes.root}>
       <Grid container >
@@ -103,7 +103,7 @@ export default function RoomBooking({ roomId, setRoomId }) {
             <Box className={classes.leftParagraph} component="div">
               <Box className={classes.roomName} component="div">
                 <Typography variant="h3" className={classes.roomLabel}>
-                  {roomId}
+                  A101
                 </Typography>
               </Box>
               <Typography variant="body1" className={classes.interval}>
@@ -141,9 +141,9 @@ export default function RoomBooking({ roomId, setRoomId }) {
           <Box component="div" className={classes.menuBar} display="flex" flexDirection="column" justifyContent="flex-end">
             <AppBar position="static" elevation={0} className={classes.menu} >
               <Toolbar style={{ opacity: '0.5' }}>
-                <Link to={`/bookings/nextweek?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>This week</Button></Link>
-                <Link to={`/bookings/nextweek?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>NEXT WEEK</Button></Link>
-                <Link to={`/bookings/wholemonth?roomId=${roomId}`} style={{ textDecoration: 'none' }}><Button>WHOLE MONTH</Button></Link>
+                <Link to={`/bookings/thisweek?roomId=${roomLabel}`} style={{ textDecoration: 'none' }}><Button>This week</Button></Link>
+                <Link to={`/bookings/nextweek?roomId=${roomLabel}`} style={{ textDecoration: 'none' }}><Button>NEXT WEEK</Button></Link>
+                <Link to={`/bookings/wholemonth?roomId=${roomLabel}`} style={{ textDecoration: 'none' }}><Button>WHOLE MONTH</Button></Link>
               </Toolbar>
             </AppBar>
           </Box>
